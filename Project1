@@ -1,0 +1,102 @@
+#Logistic Regression algorithm
+
+import pandas as pd
+
+from sklearn.preprocessing import LabelEncoder
+#from sklearn.datasets import load_iris
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import svm
+from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
+
+from sklearn.model_selection import train_test_split
+from  sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+
+rf=RandomForestClassifier(random_state=1)
+lr=LogisticRegression(random_state=0)
+gbm=GradientBoostingClassifier(n_estimators=10)
+dt=DecisionTreeClassifier(random_state=0)
+sv=svm.SVC()
+nn=MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(2,5),random_state=0)
+nbm=MultinomialNB()
+nbg=GaussianNB()
+
+# logr=LogisticRegression()
+
+df =pd.read_csv("C:/Users/CC-088/Documents/snehal/IRIS.csv")
+# print(df)
+
+
+x=df.drop("species",axis=1)
+y=df["species"]
+
+#print(x)
+#print(y)
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,random_state=0,test_size=0.3)
+
+#print(x_train)
+#print(x_test)
+# print(y_train)
+#print(y_test)
+
+
+rf.fit(x_train,y_train)
+lr.fit(x_train,y_train)
+gbm.fit(x_train,y_train)
+dt.fit(x_train,y_train)
+sv.fit(x_train,y_train)
+nn.fit(x_train,y_train)
+nbm.fit(x_train,y_train)
+nbg.fit(x_train,y_train)
+
+
+y_pred_rf = rf.predict(x_test)
+y_pred_lr = lr.predict(x_test)
+y_pred_gbm = gbm.predict(x_test)
+y_pred_dt = dt.predict(x_test)
+y_pred_sv = sv.predict(x_test)
+y_pred_nn = nn.predict(x_test)
+y_pred_nbm = nbm.predict(x_test)
+y_pred_nbg = nbg.predict(x_test)
+
+print("Random Forest",accuracy_score(y_test,y_pred_rf))
+print("\n")
+
+print("Logical Regression",accuracy_score(y_test,y_pred_lr))
+print("\n")
+
+print("Gradient Boosting Method",accuracy_score(y_test,y_pred_gbm))
+print("\n")
+
+print("Decision Tree",accuracy_score(y_test,y_pred_dt))
+print("\n")
+
+print("Sector vector Machine",accuracy_score(y_test,y_pred_sv))
+print("\n")
+
+print("Neural Network",accuracy_score(y_test,y_pred_nn))
+print("\n")
+
+print("Naive Bayes Multinomial",accuracy_score(y_test,y_pred_nbm))
+print("\n")
+
+print("Naive Bayes Guassian",accuracy_score(y_test,y_pred_nbg))
+#
+# OUTPUT
+# Random Forest 0.9777777777777777
+# Logical Regression 0.9777777777777777
+# Gradient Boosting Method 0.9777777777777777
+# Decision Tree 0.9777777777777777
+# Sector vector Machine 0.9777777777777777
+# Neural Network 0.9777777777777777
+# Naive Bayes Multinomial 0.6
+# Naive Bayes Guassian 1.0
